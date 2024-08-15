@@ -114,6 +114,9 @@ asdf:
   export EMAIL_ADDRESS="example@metallica.com"
   ```
 
+6. **My personal ZSH and VSCode profile configurations**:
+- In the directory configs I keep both my zshrc and vscode profile config which includes most of the extensions I use
+
 ## Enjoy!
 
 Feel free to tweak it, fork it, or just use it as-is. This setup works great for me, and I hope it helps you get up and running faster too!
