@@ -5,7 +5,7 @@ Welcome to my personal development environment setup! This is just a collection 
 ## What You Need Before You Start
 
 - Setup WSL: https://learn.microsoft.com/en-us/windows/wsl/install
-  
+
   ```powershell
   wsl --list --online
   wsl --install -d Ubuntu-24.04
@@ -45,12 +45,12 @@ Before you run these scripts, make sure:
 ### 3. `asdf` Version Manager
 
 - I use `asdf` to manage multiple versions of programming languages and other tools. This script installs `asdf` and sets it up for my user.
+  Link: **https://asdf-vm.com/guide/getting-started.html#_6-set-a-version**
 
 ### 4. `asdf` Plugins & Versions
 
 - I've got a `asdf.yaml` file where I list the programming languages and tool versions I need for my projects.
 - The script reads this file and automatically installs the required `asdf` plugins and versions. This way, my environment is always set up exactly how I need it.
-
 
 ## How to Set It Up
 
@@ -123,6 +123,7 @@ asdf:
   ```
 
 6. **My personal ZSH and VSCode profile configurations**:
+
 - In the directory configs I keep both my zshrc and vscode profile config which includes most of the extensions I use
 
 ## Enjoy!
