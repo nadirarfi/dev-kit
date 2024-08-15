@@ -13,8 +13,6 @@ Key steps:
 Use this script to quickly set up SSH authentication for GitHub.
 """
 
-CONFIG_FILE="config.yaml"
-
 # Read value from ENV variable
 EMAIL=$EMAIL_ADDRESS
 

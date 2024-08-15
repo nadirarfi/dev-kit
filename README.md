@@ -122,6 +122,10 @@ ubuntu:
 
 5. **Setup SSH access to Github**:
 - This script also automates the creation and setup of an SSH key for GitHub.
+- When generating the SSH key, make sure to export your personal address before running the script. 
+  ```bash
+  export EMAIL_ADDRESS="example@metallica.com"
+  ```
 
 ## Enjoy!
 
