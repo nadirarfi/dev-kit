@@ -4,13 +4,21 @@ Welcome to my personal development environment setup! This is just a collection 
 
 ## What You Need Before You Start
 
+- Setup WSL: https://learn.microsoft.com/en-us/windows/wsl/install
+  
+  ```powershell
+  wsl --list --online
+  wsl --install -d Ubuntu-24.04
+  ```
+
 Before you run these scripts, make sure:
 
 - You’re on a compatible version of Ubuntu (I'm usually on the latest one).
 - You’ve got `curl` and `git` installed. If not, you can easily install them with:
 
   ```bash
-  sudo apt update && sudo apt install curl git yq -y
+  sudo apt update && sudo apt upgrade
+  sudo apt install curl git yq -y
   ```
 
 ## What's Included
