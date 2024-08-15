@@ -2,11 +2,32 @@
 
 Welcome to my personal development environment setup! This is just a collection of scripts and configurations that I use to quickly set up my dev environment on Ubuntu (especially useful for WSL). It takes care of installing the packages I need, sets up Zsh as my go-to shell, and installs and configures `asdf` for managing various tool versions via a simple YAML config file.
 
+## What You Need Before You Start
+
+Before you run these scripts, make sure:
+
+- You’re on a compatible version of Ubuntu (I'm usually on the latest one).
+- You’ve got `curl` and `git` installed. If not, you can easily install them with:
+
+  ```bash
+  sudo apt update && sudo apt install curl git yq -y
+  ```
+
 ## What's Included
 
 ### 1. Essential Ubuntu Packages
 
 - These scripts will automatically install a bunch of essential packages I use regularly. This way, I don't have to worry about missing tools when starting a new project or setting up a fresh system.
+
+  ```yaml
+  ubuntu:
+    apt:
+      packages:
+        - unzip
+        - xclip
+        - jq
+        - wget
+  ```
 
 ### 2. Zsh Setup
 
@@ -19,19 +40,9 @@ Welcome to my personal development environment setup! This is just a collection 
 
 ### 4. `asdf` Plugins & Versions
 
-- I've got a `config.yaml` file where I list the programming languages and tool versions I need for my projects.
+- I've got a `asdf.yaml` file where I list the programming languages and tool versions I need for my projects.
 - The script reads this file and automatically installs the required `asdf` plugins and versions. This way, my environment is always set up exactly how I need it.
 
-## What You Need Before You Start
-
-Before you run these scripts, make sure:
-
-- You’re on a compatible version of Ubuntu (I'm usually on the latest one).
-- You’ve got `curl` and `git` installed. If not, you can easily install them with:
-
-  ```bash
-  sudo apt update && sudo apt install curl git -y
-  ```
 
 ## How to Set It Up
 
@@ -52,15 +63,15 @@ Before you run these scripts, make sure:
 
 3. **Tweak the YAML Config**:
 
-   - If you need to adjust the programming languages or versions, just edit the `config.yaml` file.
+   - If you need to adjust the programming languages or versions, just edit the `asdf.yaml` file.
    - The script will pick up the changes and install whatever you need.
 
 4. **Apply Zsh as Default**:
    - Once everything is set up, you might need to log out and log back in to make sure Zsh is your default shell.
 
-## Example `config.yaml`
+## Example `asdf.yaml`
 
-Here’s an example of what my `config.yaml` might look like:
+Here’s an example of what my `asdf.yaml` might look like:
 
 ```yaml
 asdf:
@@ -93,36 +104,12 @@ asdf:
       versions:
         - 0.27.0
       default: 0.27.0
-
-ubuntu:
-  apt:
-    packages:
-      - yq
-      - unzip
-      - xclip
-      - jq
-      - wget
-      - curl
-      - make
-      - build-essential
-      - libssl-dev
-      - zlib1g-dev
-      - libbz2-dev
-      - libreadline-dev
-      - libsqlite3-dev
-      - llvm
-      - libncursesw5-dev
-      - xz-utils
-      - tk-dev
-      - libxml2-dev
-      - libxmlsec1-dev
-      - libffi-dev
-      - liblzma-dev
 ```
 
 5. **Setup SSH access to Github**:
+
 - This script also automates the creation and setup of an SSH key for GitHub.
-- When generating the SSH key, make sure to export your personal address before running the script. 
+- When generating the SSH key, make sure to export your personal address before running the script.
   ```bash
   export EMAIL_ADDRESS="example@metallica.com"
   ```
