@@ -1,0 +1,55 @@
+asdf:
+  tools:
+  - name: python
+    git: https://github.com/asdf-community/asdf-python
+    versions:
+      - 3.8.10
+      - 3.9.6
+      - 3.11.0      
+      - 3.11.6
+    default: 3.11.0
+  - name: terraform
+    git: https://github.com/asdf-community/asdf-hashicorp
+    versions:
+      - 1.5.6
+    default: 1.5.6
+  - name: terragrunt
+    git: https://github.com/ohmer/asdf-terragrunt
+    versions:
+      - 0.50.4
+    default: 0.50.4
+  - name: kubectl
+    git: https://github.com/asdf-community/asdf-kubectl
+    versions:
+      - 1.28.1
+    default: 1.28.1    
+  - name: k9s
+    git: https://github.com/looztra/asdf-k9s
+    versions:
+      - 0.27.0
+    default: 0.27.0 
+
+ubuntu:
+  apt:
+    packages:
+      - yq
+      - unzip
+      - xclip
+      - jq
+      - wget
+      - curl      
+      - make
+      - build-essential
+      - libssl-dev
+      - zlib1g-dev
+      - libbz2-dev
+      - libreadline-dev
+      - libsqlite3-dev
+      - llvm
+      - libncursesw5-dev
+      - xz-utils
+      - tk-dev
+      - libxml2-dev
+      - libxmlsec1-dev
+      - libffi-dev
+      - liblzma-dev
