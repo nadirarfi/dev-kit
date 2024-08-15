@@ -14,7 +14,7 @@ Use this script to streamline the installation and configuration of development 
 """
 
 # Path to the YAML configuration file
-CONFIG_FILE="config.yaml"
+CONFIG_FILE="asdf.yaml"
 
 # Check if yq is installed
 if ! command -v yq > /dev/null; then

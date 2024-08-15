@@ -1,4 +1,3 @@
-
 # dev-kit
 
 Welcome to my personal development environment setup! This is just a collection of scripts and configurations that I use to quickly set up my dev environment on Ubuntu (especially useful for WSL). It takes care of installing the packages I need, sets up Zsh as my go-to shell, and installs and configures `asdf` for managing various tool versions via a simple YAML config file.
@@ -6,22 +5,27 @@ Welcome to my personal development environment setup! This is just a collection 
 ## What's Included
 
 ### 1. Essential Ubuntu Packages
+
 - These scripts will automatically install a bunch of essential packages I use regularly. This way, I don't have to worry about missing tools when starting a new project or setting up a fresh system.
 
 ### 2. Zsh Setup
+
 - I prefer using Zsh as my default shell, so this script will install Zsh if it’s not already installed and make it the default.
 - If Zsh is already there, it skips the installation and just sets things up the way I like, including adding some cool plugins and themes like Oh My Zsh.
 
 ### 3. `asdf` Version Manager
+
 - I use `asdf` to manage multiple versions of programming languages and other tools. This script installs `asdf` and sets it up for my user.
-  
+
 ### 4. `asdf` Plugins & Versions
+
 - I've got a `config.yaml` file where I list the programming languages and tool versions I need for my projects.
 - The script reads this file and automatically installs the required `asdf` plugins and versions. This way, my environment is always set up exactly how I need it.
 
 ## What You Need Before You Start
 
 Before you run these scripts, make sure:
+
 - You’re on a compatible version of Ubuntu (I'm usually on the latest one).
 - You’ve got `curl` and `git` installed. If not, you can easily install them with:
 
@@ -31,7 +35,7 @@ Before you run these scripts, make sure:
 
 ## How to Set It Up
 
-1. **Clone This Repo**: 
+1. **Clone This Repo**:
    Just grab the repository and navigate into it:
 
    ```bash
@@ -39,7 +43,7 @@ Before you run these scripts, make sure:
    cd dev-kit
    ```
 
-2. **Run the Setup Script**: 
+2. **Run the Setup Script**:
    Fire up the main setup script. This will handle everything from installing packages, setting up Zsh, to configuring `asdf`:
 
    ```bash
@@ -47,6 +51,7 @@ Before you run these scripts, make sure:
    ```
 
 3. **Tweak the YAML Config**:
+
    - If you need to adjust the programming languages or versions, just edit the `config.yaml` file.
    - The script will pick up the changes and install whatever you need.
 
@@ -113,8 +118,10 @@ ubuntu:
       - libxmlsec1-dev
       - libffi-dev
       - liblzma-dev
-
 ```
+
+5. **Setup SSH access to Github**:
+- This script also automates the creation and setup of an SSH key for GitHub.
 
 ## Enjoy!
 

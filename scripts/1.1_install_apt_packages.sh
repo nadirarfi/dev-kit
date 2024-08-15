@@ -13,7 +13,7 @@ Use this script to automate package installation according to your configuration
 """
 
 # Path to the YAML configuration file
-CONFIG_FILE="config.yaml"
+CONFIG_FILE="ubuntu.yaml"
 
 # Check if yq is installed (we'll use it to parse the YAML file)
 if ! command -v yq >/dev/null; then
