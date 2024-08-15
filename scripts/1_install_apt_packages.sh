@@ -1,5 +1,18 @@
 #!/bin/bash
 
+DESCRIPTION="""
+This script installs packages on an Ubuntu system based on a YAML configuration file.
+
+Key steps:
+1. Checks for the presence of 'yq' (a YAML processor). If missing, prompts for installation.
+2. Updates the package lists using 'apt-get update'.
+3. Reads the list of packages from the specified YAML configuration file.
+4. Installs each package listed under the 'ubuntu.apt.packages' section.
+
+Use this script to automate package installation according to your configuration file.
+"""
+
+
 # Path to the YAML configuration file
 CONFIG_FILE="config.yaml"
 

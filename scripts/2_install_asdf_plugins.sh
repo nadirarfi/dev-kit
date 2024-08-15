@@ -1,5 +1,19 @@
 #!/bin/bash
 
+DESCRIPTION="""
+This script automates the setup of tools using asdf based on a YAML configuration file.
+
+Key steps:
+1. Verifies the installation of 'yq' for parsing the YAML file.
+2. Loops through each tool defined in the 'asdf.tools' section of the config file.
+3. Adds the specified asdf plugin if not already added.
+4. Installs the specified versions of each tool.
+5. Sets the global default version for each tool and updates the ~/.zshrc file if applicable.
+
+Use this script to streamline the installation and configuration of development tools with asdf.
+"""
+
+
 # Path to the YAML configuration file
 CONFIG_FILE="config.yaml"
 

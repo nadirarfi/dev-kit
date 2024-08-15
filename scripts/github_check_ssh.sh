@@ -1,5 +1,16 @@
 #!/bin/bash
 
+DESCRIPTION="""
+This script configures and verifies SSH access to GitHub.
+
+Key steps:
+1. Adds GitHub SSH configuration to your SSH config file if missing.
+2. Checks for the existence of the specified SSH key.
+3. Starts the SSH agent and adds your key if not already added.
+4. Tests the SSH connection to GitHub and provides feedback.
+
+Use this script to automate and validate your SSH setup for GitHub.
+"""
 
 # Variables
 KEY_NAME=github_ssh_key

@@ -1,5 +1,18 @@
 #!/bin/bash
 
+DESCRIPTION="""
+This script automates the creation and setup of an SSH key for GitHub.
+
+Key steps:
+1. Creates the .ssh directory if it doesn't exist.
+2. Generates a new SSH key pair using the provided email.
+3. Starts the SSH agent and adds the new key.
+4. Copies the public key to the clipboard (using xclip if available).
+5. Provides instructions for adding the public key to your GitHub account.
+
+Use this script to quickly set up SSH authentication for GitHub.
+"""
+
 
 CONFIG_FILE="config.yaml"
 
