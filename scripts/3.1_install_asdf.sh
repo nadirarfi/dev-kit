@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# 
-
 DESCRIPTION="""
 This script installs ASDF version manager, only if it is not already installed on the system.
 
@@ -14,16 +12,16 @@ https://asdf-vm.com/guide/getting-started.html
 
 # Check if ASDF is installed
 if [ ! -d "$HOME/.asdf" ]; then
-  echo "ASDF is not installed. Cloning ASDF repository..."
+  echo -e "${RED}ASDF is not installed. Cloning ASDF repository...${NC}"
   git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.0
 else
-  echo "ASDF is already installed."
+  echo -e "${GREEN}ASDF is already installed.${NC}"
 fi
 
 # Check and add ASDF initialization to .zshrc if not present
 if ! grep -q '^[^#]*\. "$HOME/.asdf/asdf.sh"' "$HOME/.zshrc"; then
-  echo "Adding ASDF initialization to .zshrc..."
-  cat <<EOL >> "$HOME/.zshrc"
+  echo -e "${YELLOW}Adding ASDF initialization to .zshrc...${NC}"
+  cat <<EOL >>"$HOME/.zshrc"
 
 ################ ASDF
 . "\$HOME/.asdf/asdf.sh"
@@ -31,5 +29,5 @@ fpath=(\${ASDF_DIR}/completions \$fpath)
 autoload -Uz compinit && compinit
 EOL
 else
-  echo "ASDF initialization already present in .zshrc."
+  echo -e "${BLUE}ASDF initialization already present in .zshrc.${NC}"
 fi

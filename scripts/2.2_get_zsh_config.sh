@@ -2,8 +2,8 @@
 
 DESCRIPTION="""
 This script backs up the user's Zsh configuration (.zshrc) to a specified directory.
-It checks if the .zshrc file exists in the user's home directory, and if it does, 
-the script creates a backup of this file in a directory named 'configs'. 
+It checks if the .zshrc file exists in the user's home directory, and if it does,
+the script creates a backup of this file in a directory named 'configs'.
 The backup is saved as '.myzshrc' within the 'configs' directory.
 
 Key functionalities:
@@ -22,15 +22,15 @@ OUTPUT_FILE="$OUTPUT_DIR/.myzshrc"
 
 # Check if the .zshrc file exists
 if [ -f "$ZSHRC_PATH" ]; then
-  echo "Retrieving your current Zsh configuration..."
+  echo -e "${YELLOW}Retrieving your current Zsh configuration...${NC}"
 
   # Create the output directory if it doesn't exist
   mkdir -p "$OUTPUT_DIR"
 
   # Copy the contents of .zshrc to the output file
   cp "$ZSHRC_PATH" "$OUTPUT_FILE"
-  echo "Your current Zsh configuration has been saved to $OUTPUT_FILE."
+  echo -e "${GREEN}Your current Zsh configuration has been saved to $OUTPUT_FILE.${NC}"
 
 else
-  echo "No .zshrc file found in your home directory."
+  echo -e "${RED}No .zshrc file found in your home directory.${NC}"
 fi

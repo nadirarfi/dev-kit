@@ -19,13 +19,13 @@ SSH_CONFIG_FILE="$HOME/.ssh/config"
 GITHUB_HOST="github.com"
 
 # Step 1: Ensure SSH configuration for GitHub exists
-echo "Configuring SSH for GitHub..."
+echo -e "${YELLOW}Configuring SSH for GitHub...${NC}"
 
 if grep -Fxq "Host $GITHUB_HOST" "$SSH_CONFIG_FILE"; then
-  echo "SSH configuration for GitHub already exists in $SSH_CONFIG_FILE."
+  echo -e "${GREEN}SSH configuration for GitHub already exists in $SSH_CONFIG_FILE.${NC}"
 else
-  echo "Adding SSH configuration for GitHub to $SSH_CONFIG_FILE."
-  cat >> "$SSH_CONFIG_FILE" <<EOL
+  echo -e "${YELLOW}Adding SSH configuration for GitHub to $SSH_CONFIG_FILE.${NC}"
+  cat >>"$SSH_CONFIG_FILE" <<EOL
 
 # GitHub SSH configuration
 Host github.com
@@ -33,36 +33,36 @@ Host github.com
     User git
     IdentityFile $SSH_KEY_PATH
 EOL
-  echo "SSH configuration for GitHub added to $SSH_CONFIG_FILE."
+  echo -e "${GREEN}SSH configuration for GitHub added to $SSH_CONFIG_FILE.${NC}"
 fi
 
 # Step 2: Check if SSH key exists, prompt user if not
 if [ ! -f "$SSH_KEY_PATH" ]; then
-  echo "SSH key not found at $SSH_KEY_PATH."
-  echo "Please generate an SSH key using ssh-keygen and try again."
+  echo -e "${RED}SSH key not found at $SSH_KEY_PATH.${NC}"
+  echo -e "${RED}Please generate an SSH key using ssh-keygen and try again.${NC}"
   exit 1
 fi
 
 # Step 3: Start SSH agent if not running and add the key
-echo "Starting the SSH agent and adding your SSH key..."
-if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+echo -e "${YELLOW}Starting the SSH agent and adding your SSH key...${NC}"
+if ! pgrep -u "$USER" ssh-agent >/dev/null; then
   eval "$(ssh-agent -s)"
 fi
 
 ssh-add "$SSH_KEY_PATH"
 
 # Step 4: Test the SSH connection to GitHub
-echo "Testing SSH connection to GitHub..."
+echo -e "${YELLOW}Testing SSH connection to GitHub...${NC}"
 ssh -T git@$GITHUB_HOST
 
-# Step 6: Provide feedback based on the result of the connection test
+# Step 5: Provide feedback based on the result of the connection test
 if [ $? -eq 1 ]; then
-  echo "SSH connection to GitHub failed. Please check your SSH key and configuration."
+  echo -e "${RED}SSH connection to GitHub failed. Please check your SSH key and configuration.${NC}"
   exit 1
 elif [ $? -eq 255 ]; then
-  echo "SSH connection to GitHub could not be established."
-  echo "You might have to confirm the authenticity of the host."
+  echo -e "${RED}SSH connection to GitHub could not be established.${NC}"
+  echo -e "${RED}You might have to confirm the authenticity of the host.${NC}"
   exit 1
 else
-  echo "SSH connection to GitHub was successful!"
+  echo -e "${GREEN}SSH connection to GitHub was successful!${NC}"
 fi
