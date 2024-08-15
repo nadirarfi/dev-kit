@@ -58,7 +58,7 @@ Before you run these scripts, make sure:
    Fire up the main setup script. This will handle everything from installing packages, setting up Zsh, to configuring `asdf`:
 
    ```bash
-   bash setup.sh
+   ./setup.sh
    ```
 
 3. **Tweak the YAML Config**:
