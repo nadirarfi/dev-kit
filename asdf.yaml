@@ -3,9 +3,6 @@ asdf:
     - name: python
       git: https://github.com/asdf-community/asdf-python
       versions:
-        - 3.8.10
-        - 3.9.6
-        - 3.11.0
         - 3.11.6
       default: 3.11.0
     - name: terraform
