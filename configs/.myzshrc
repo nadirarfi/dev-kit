@@ -1,113 +1,1159 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
-
-# Path to your Oh My Zsh installation.
+# Path to your oh-my-zsh installation
 export ZSH="$HOME/.oh-my-zsh"
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time Oh My Zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+# Set theme
 ZSH_THEME="robbyrussell"
 
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+# Enable command auto-correction
+ENABLE_CORRECTION="true"
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+# Display red dots while waiting for completion
+COMPLETION_WAITING_DOTS="true"
 
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+# History settings
+HIST_STAMPS="yyyy-mm-dd"
+HISTSIZE=10000
+SAVEHIST=10000
+HISTFILE=~/.zsh_history
+setopt HIST_IGNORE_DUPS
+setopt HIST_FIND_NO_DUPS
+setopt HIST_REDUCE_BLANKS
 
-# Uncomment one of the following lines to change the auto-update behavior
-# zstyle ':omz:update' mode disabled  # disable automatic updates
-# zstyle ':omz:update' mode auto      # update automatically without asking
-# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
-
-# Uncomment the following line to change how often to auto-update (in days).
-# zstyle ':omz:update' frequency 13
-
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# You can also set it to another string to have that shown instead of the default red dots.
-# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
-# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+# Oh My Zsh plugins
+# Note: you must install zsh-autosuggestions and zsh-syntax-highlighting manually:
+# git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+# git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+plugins=(
+  git
+  docker
+  docker-compose
+  kubectl
+  aws
+  terraform
+  helm
+  golang
+  python
+  node
+  vscode
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
+export LANG=en_US.UTF-8
+export EDITOR='vim'
 
-# export MANPATH="/usr/local/man:$MANPATH"
+# Load additional config files if they exist
+for file in ~/.zsh/configs/*.zsh(N); do
+  source "$file"
+done
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+# NVM (Node Version Manager) setup if installed
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='nvim'
-# fi
+# Pyenv setup if installed
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
 
-# Compilation flags
-# export ARCHFLAGS="-arch $(uname -m)"
+################ ASDF if installed
+[ -f "$HOME/.asdf/asdf.sh" ] && . "$HOME/.asdf/asdf.sh"
+[ -d "${ASDF_DIR}/completions" ] && fpath=(${ASDF_DIR}/completions $fpath)
 
-# Set personal aliases, overriding those provided by Oh My Zsh libs,
-# plugins, and themes. Aliases can be placed here, though Oh My Zsh
-# users are encouraged to define aliases within a top-level file in
-# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
-# - $ZSH_CUSTOM/aliases.zsh
-# - $ZSH_CUSTOM/macos.zsh
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+# Navigation & General Aliases
+# Directory navigation
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ~='cd ~'
+alias -- -='cd -'
+
+# List directory contents
+alias ll='ls -lh'
+alias la='ls -lha'
+alias l='ls -CF'
+alias lt='ls -lt'   # sort by time
+alias ltr='ls -ltr' # sort by time, reverse
+alias lsr='ls -lR'  # recursive ls
+alias lsz='ls -lSr' # sort by size
+
+# File operations
+alias cp='cp -iv'
+alias mv='mv -iv'
+alias rm='rm -iv'
+alias mkdir='mkdir -pv'
+
+# Common typos
+alias cd..='cd ..'
+
+# Quick source/edit zshrc
+alias sz='source ~/.zshrc'
+alias ez='$EDITOR ~/.zshrc'
+
+# System info
+alias meminfo='free -m -l -t'
+alias df='df -h'
+alias du='du -h -c'
+alias top='htop'
+alias path='echo -e ${PATH//:/\\n}'
+
+# Git shortcuts
+alias g='git'
+alias ga='git add'
+alias gaa='git add --all'
+alias gau='git add -u'  # Add only tracked files
+alias gap='git add -p'  # Interactive staging
+alias gb='git branch'
+alias gba='git branch -a'  # List all branches
+alias gbd='git branch -d'  # Delete branch
+alias gbD='git branch -D'  # Force delete branch
+alias gbl='git blame -b -w'  # Show what revision and author last modified each line
+
+# Git commit
+alias gc='git commit -v'
+alias gcm='git commit -m'
+alias gca='git commit -v --amend'
+alias gcan='git commit -v --amend --no-edit'  # Amend without editing message
+alias gcane='git commit --amend --no-edit'  # Amend without editing message and without verbose
+
+# Git checkout
+alias gco='git checkout'
+alias gcob='git checkout -b'
+alias gcom='git checkout main || git checkout master'  # Checkout main/master
+alias gcod='git checkout develop'  # Checkout develop
+
+# Git diff
+alias gd='git diff'
+alias gds='git diff --staged'
+alias gdw='git diff --word-diff'  # Show word diff
+alias gdca='git diff --cached'  # Show staged changes
+alias gdcw='git diff --cached --word-diff'  # Show staged changes word diff
+alias gdt='git diff-tree --no-commit-id --name-only -r'  # Show changed files
+
+# Git fetch/pull/push
+alias gf='git fetch'
+alias gfa='git fetch --all --prune'  # Fetch all remotes and prune
+alias gfo='git fetch origin'  # Fetch from origin
+alias gl='git pull'
+alias glr='git pull --rebase'  # Pull with rebase
+alias gp='git push'
+alias gpf='git push --force-with-lease'  # Safer force push
+alias gpsup='git push --set-upstream origin $(git_current_branch)'
+alias gpv='git push --no-verify'  # Push without hooks
+
+# Git log
+alias glo='git log --oneline'
+alias glog='git log --oneline --decorate --graph'
+alias gloga='git log --oneline --decorate --graph --all'
+alias glp='git log -p'  # Show log with patches
+alias glstat='git log --stat'  # Show log with stats
+alias glsig='git log --show-signature'  # Show log with signatures
+
+# Git rebase
+alias grb='git rebase'
+alias grba='git rebase --abort'
+alias grbc='git rebase --continue'
+alias grbi='git rebase -i'  # Interactive rebase
+alias grbm='git rebase $(git_main_branch)'  # Rebase on main/master
+alias grbd='git rebase develop'  # Rebase on develop
+
+# Git status and info
+alias gst='git status'
+alias gss='git status -s'  # Short status
+alias gsb='git status -sb'  # Short status with branch info
+alias gsh='git show'  # Show last commit
+alias gsps='git show --pretty=short --show-signature'  # Show signature verification
+
+# Git stash
+alias gsta='git stash push'
+alias gstaa='git stash apply'
+alias gstc='git stash clear'
+alias gstd='git stash drop'
+alias gstl='git stash list'
+alias gstp='git stash pop'
+alias gsts='git stash show --text'
+
+# Git tag
+alias gt='git tag'
+alias gta='git tag -a'  # Create annotated tag
+alias gtl='git tag --list'  # List tags
+alias gtd='git tag --delete'  # Delete tag
+
+# Git workflows
+alias gclean='git clean -fd'  # Remove untracked files/directories
+alias greset='git reset --hard HEAD'  # Reset to HEAD
+alias gsync='git fetch origin && git pull'  # Sync with origin
+alias gundo='git reset --soft HEAD~1'  # Undo last commit
+alias gwip='git add -A; git commit -m "WIP" --no-verify'  # Create WIP commit
+alias gunwip='git reset HEAD~1'  # Undo WIP commit
+alias gprune='git fetch -p && git branch -vv | grep '\''origin/.*: gone]'\'' | awk '\''{print $1}'\'' | xargs git branch -D'  # Remove deleted remote branches
+alias gpristine='git reset --hard && git clean -dffx'  # Reset to pristine state
+alias gfixup='git commit --fixup'  # Create fixup commit
+alias gsquash='git rebase -i --autosquash'  # Squash fixup commits
+
+# Docker commands
+alias d='docker'
+alias di='docker images'
+alias dps='docker ps'
+alias dpsa='docker ps -a'
+alias drm='docker rm'
+alias drmi='docker rmi'
+alias dex='docker exec -it'
+alias dlogs='docker logs'
+alias dstop='docker stop'
+alias dstart='docker start'
+alias drestart='docker restart'
+alias dprune='docker system prune -a'
+
+# Docker Compose
+alias dc='docker compose'
+alias dcu='docker compose up'
+alias dcud='docker compose up -d'
+alias dcd='docker compose down'
+alias dcl='docker compose logs -f'
+alias dcp='docker compose pull'
+alias dcr='docker compose restart'
+
+# Podman (alternative to Docker)
+alias pod='podman'
+alias podi='podman images'
+alias podps='podman ps'
+alias podex='podman exec -it'
+
+# Kubectl primary shortcuts
+alias k='kubectl'
+alias kg='kubectl get'
+alias kga='kubectl get all'
+alias kd='kubectl describe'
+alias kl='kubectl logs'
+alias kex='kubectl exec -it'
+alias ka='kubectl apply -f'
+alias krm='kubectl delete'
+
+# Kubectl context and namespace management
+alias kctx='kubectl config use-context'
+alias kctxs='kubectl config get-contexts'
+alias kcc='kubectl config current-context'  # Show current context
+alias kcns='kubectl config view --minify --output "jsonpath={..namespace}"'  # Show current namespace
+alias kns='kubectl config set-context --current --namespace'
+
+# Pods management
+alias kgp='kubectl get pods'
+alias kgpw='kubectl get pods -o wide'  # Show pods with more details
+alias kgpall='kubectl get pods --all-namespaces'  # Get pods across all namespaces
+alias kgpa='kubectl get pods --all-namespaces'
+alias kgpwatch='kubectl get pods --watch'  # Watch pods in real-time
+alias kgpjson='kubectl get pods -o json'  # Get pods in JSON format
+alias kgpyaml='kubectl get pods -o yaml'  # Get pods in YAML format
+alias kgpsort='kubectl get pods --sort-by=".status.containerStatuses[0].restartCount"'  # Sort by restart count
+alias kgprs='kubectl get pods --sort-by=".status.containerStatuses[0].restartCount"'
+alias kdp='kubectl describe pod'
+alias kdelp='kubectl delete pod'
+alias kgpn='kubectl get pods -o=name'  # Get just pod names
+alias kgpl='kubectl get pods -l'  # Get pods with specific label
+
+# Deployment management
+alias kgd='kubectl get deployments'
+alias kdeld='kubectl delete deployment'
+alias ksd='kubectl scale deployment'
+alias krsd='kubectl rollout status deployment'
+alias krd='kubectl rollout restart deployment'
+alias kdd='kubectl describe deployment'
+
+# Service management
+alias kgs='kubectl get services'
+alias ked='kubectl edit deployment'
+alias kes='kubectl edit service'
+alias kds='kubectl describe service'
+alias kdels='kubectl delete service'
+
+# ConfigMap and Secret management
+alias kgcm='kubectl get configmaps'
+alias kecm='kubectl edit configmap'
+alias kdcm='kubectl describe configmap'
+alias kdelcm='kubectl delete configmap'
+alias kgsec='kubectl get secret'
+alias kdsec='kubectl describe secret'
+alias kdelsec='kubectl delete secret'
+
+# Nodes management
+alias kgn='kubectl get nodes'
+alias kgno='kubectl get nodes -o wide'  # Show nodes with more details
+alias kdn='kubectl describe node'
+alias ktn='kubectl top node'  # Show node resource usage
+
+# Resource usage and monitoring
+alias ktp='kubectl top pod'  # Show pod resource usage
+alias ktpn='kubectl top pod --sort-by=cpu'  # Sort pods by CPU usage
+alias ktpm='kubectl top pod --sort-by=memory'  # Sort pods by memory usage
+
+# Logs and debugging
+alias klf='kubectl logs -f'  # Follow logs
+alias klp='kubectl logs -p'  # Get logs for previous instance
+alias kl50='kubectl logs --tail=50'  # Get last 50 lines
+alias kl100='kubectl logs --tail=100'  # Get last 100 lines
+alias kl200='kubectl logs --tail=200'  # Get last 200 lines
+alias klall='kubectl logs --all-containers=true'  # Get logs from all containers
+alias kpf='kubectl port-forward'
+alias keti='kubectl exec -ti'  # Interactive shell
+alias krun='kubectl run --rm --restart=Never --image-pull-policy=IfNotPresent -i -t'  # Run debug pod
+
+# Events
+alias kge='kubectl get events'
+alias kges='kubectl get events --sort-by=.metadata.creationTimestamp'  # Sort events by time
+
+# Wide output and yaml output for common resources
+alias kgaw='kubectl get all -o wide'
+alias kgy='kubectl get -o yaml'
+alias kgpy='kubectl get pods -o yaml'
+alias kgdy='kubectl get deployment -o yaml'
+alias kgsy='kubectl get service -o yaml'
+
+# Namespace operations
+alias kgns='kubectl get namespaces'
+alias kcns='kubectl create namespace'
+alias kdns='kubectl describe namespace'
+alias kdelns='kubectl delete namespace'
+
+# Minikube
+alias mk='minikube'
+alias mks='minikube start'
+alias mkst='minikube stop'
+alias mkd='minikube dashboard'
+alias mkip='minikube ip'
+alias mklogs='minikube logs'
+alias mkstat='minikube status'
+
+# Helm
+alias h='helm'
+alias hl='helm list'
+alias hla='helm list --all-namespaces'  # List all releases in all namespaces
+alias hi='helm install'
+alias hu='helm upgrade'
+alias huin='helm upgrade --install'  # Upgrade or install if not exists
+alias hh='helm history'
+alias hr='helm rollback'
+alias hun='helm uninstall'
+alias hs='helm status'  # Get status of release
+alias hsv='helm search repo'  # Search for chart
+alias hshub='helm search hub'  # Search Helm Hub
+alias hdep='helm dependency update'  # Update dependencies
+alias htemp='helm template'  # Render chart templates locally
+alias hlint='helm lint'  # Check chart for issues
+
+# AWS Profile Management
+alias awsp='export AWS_PROFILE='
+alias awswho='aws sts get-caller-identity'
+alias awsregion='export AWS_REGION='
+alias awsls-profiles='aws configure list-profiles'
+alias awsusage='aws ce get-cost-and-usage --time-period Start=$(date -d "1 month ago" +%Y-%m-01),End=$(date +%Y-%m-01) --granularity MONTHLY --metrics "BlendedCost" --output table'
+
+# AWS Profile Functions - allows calling any AWS command with a specific profile
+awsrun() {
+  local profile="$1"
+  shift
+  AWS_PROFILE="$profile" aws "$@"
+}
+
+# EC2 Instance Management
+# List all EC2 instances with detailed information
+alias awsls-ec2='aws ec2 describe-instances --query "Reservations[*].Instances[*].{ID:InstanceId,Name:Tags[?Key==\`Name\`].Value|[0],Type:InstanceType,State:State.Name,PrivateIP:PrivateIpAddress,PublicIP:PublicIpAddress,LaunchTime:LaunchTime,AZ:Placement.AvailabilityZone,SecurityGroups:join(\`,\`, SecurityGroups[].GroupName)}" --output table'
+
+# List running EC2 instances only
+alias awsls-ec2-running='aws ec2 describe-instances --filters "Name=instance-state-name,Values=running" --query "Reservations[*].Instances[*].{ID:InstanceId,Name:Tags[?Key==\`Name\`].Value|[0],Type:InstanceType,PrivateIP:PrivateIpAddress,PublicIP:PublicIpAddress,LaunchTime:LaunchTime,AZ:Placement.AvailabilityZone}" --output table'
+
+# List stopped EC2 instances only
+alias awsls-ec2-stopped='aws ec2 describe-instances --filters "Name=instance-state-name,Values=stopped" --query "Reservations[*].Instances[*].{ID:InstanceId,Name:Tags[?Key==\`Name\`].Value|[0],Type:InstanceType,State:State.Name}" --output table'
+
+# Show EC2 instance by Name tag (requires parameter)
+awsls-ec2-name() {
+  aws ec2 describe-instances --filters "Name=tag:Name,Values=*$1*" --query "Reservations[*].Instances[*].{ID:InstanceId,Name:Tags[?Key==\`Name\`].Value|[0],Type:InstanceType,State:State.Name,PrivateIP:PrivateIpAddress,PublicIP:PublicIpAddress}" --output table
+}
+
+# Show EC2 instances by tag key/value
+awsls-ec2-tag() {
+  if [ "$#" -ne 2 ]; then
+    echo "Usage: awsls-ec2-tag [tag-key] [tag-value]"
+    return 1
+  fi
+  aws ec2 describe-instances --filters "Name=tag:$1,Values=*$2*" --query "Reservations[*].Instances[*].{ID:InstanceId,Name:Tags[?Key==\`Name\`].Value|[0],Type:InstanceType,State:State.Name,PrivateIP:PrivateIpAddress}" --output table
+}
+
+# List instances by security group
+awsls-ec2-sg() {
+  aws ec2 describe-instances --filters "Name=instance.group-name,Values=*$1*" --query "Reservations[*].Instances[*].{ID:InstanceId,Name:Tags[?Key==\`Name\`].Value|[0],Type:InstanceType,State:State.Name,SG:SecurityGroups[*].GroupName}" --output table
+}
+
+# List EC2 instance status
+alias awsls-ec2-status='aws ec2 describe-instance-status --query "InstanceStatuses[*].{ID:InstanceId,Status:InstanceStatus.Status,SystemStatus:SystemStatus.Status,AZ:AvailabilityZone}" --output table'
+
+# Get EC2 console output
+awsec2-console() {
+  aws ec2 get-console-output --instance-id "$1" --output text
+}
+
+# Start, stop, reboot, terminate EC2 instances
+awsec2-start() {
+  aws ec2 start-instances --instance-ids "$1"
+  aws ec2 describe-instances --instance-ids "$1" --query "Reservations[*].Instances[*].{ID:InstanceId,State:State.Name}" --output table
+}
+
+awsec2-stop() {
+  aws ec2 stop-instances --instance-ids "$1"
+  aws ec2 describe-instances --instance-ids "$1" --query "Reservations[*].Instances[*].{ID:InstanceId,State:State.Name}" --output table
+}
+
+awsec2-reboot() {
+  aws ec2 reboot-instances --instance-ids "$1"
+  sleep 5
+  aws ec2 describe-instances --instance-ids "$1" --query "Reservations[*].Instances[*].{ID:InstanceId,State:State.Name}" --output table
+}
+
+awsec2-terminate() {
+  echo "Are you sure you want to terminate instance $1? (y/n)"
+  read confirm
+  if [[ $confirm == "y" || $confirm == "Y" ]]; then
+    aws ec2 terminate-instances --instance-ids "$1"
+    aws ec2 describe-instances --instance-ids "$1" --query "Reservations[*].Instances[*].{ID:InstanceId,State:State.Name}" --output table
+  fi
+}
+
+# Detailed EC2 Instance Info
+awsec2-info() {
+  aws ec2 describe-instances --instance-ids "$1" --output json | jq '.'
+}
+
+# Get instance user data
+awsec2-userdata() {
+  aws ec2 describe-instance-attribute --instance-id "$1" --attribute userData --output text --query "UserData.Value" | base64 --decode
+}
+
+# EC2 Monitoring 
+awsec2-cpu() {
+  local instance_id="$1"
+  local minutes="${2:-60}"
+  aws cloudwatch get-metric-statistics --namespace AWS/EC2 --metric-name CPUUtilization \
+    --dimensions Name=InstanceId,Value="$instance_id" \
+    --statistics Average --period 300 \
+    --start-time "$(date -u -d "-$minutes minutes" +%Y-%m-%dT%H:%M:%SZ)" \
+    --end-time "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+    --output table
+}
+
+awsec2-mem() {
+  local instance_id="$1"
+  local minutes="${2:-60}"
+  aws cloudwatch get-metric-statistics --namespace CWAgent --metric-name mem_used_percent \
+    --dimensions Name=InstanceId,Value="$instance_id" \
+    --statistics Average --period 300 \
+    --start-time "$(date -u -d "-$minutes minutes" +%Y-%m-%dT%H:%M:%SZ)" \
+    --end-time "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+    --output table
+}
+
+# SSM Session Manager - Profile aware
+alias awsip='curl http://checkip.amazonaws.com/'
+
+awsssm() {
+  local instance_id="$1"
+  local profile="$AWS_PROFILE"
+  
+  if [ -z "$profile" ]; then
+    echo "No AWS_PROFILE set. Usage: AWS_PROFILE=<profile> awsssm <instance-id>"
+    return 1
+  fi
+  
+  echo "Starting SSM session to $instance_id using profile $profile"
+  aws ssm start-session --target "$instance_id"
+}
+
+# Run SSM command and retrieve output
+awsssm-run() {
+  if [ "$#" -lt 2 ]; then
+    echo "Usage: awsssm-run <instance-id> \"<command>\""
+    return 1
+  fi
+  
+  local instance_id="$1"
+  local command="$2"
+  local cmd_id
+  
+  echo "Running command on $instance_id: $command"
+  cmd_id=$(aws ssm send-command \
+    --instance-ids "$instance_id" \
+    --document-name "AWS-RunShellScript" \
+    --parameters "commands=[\"$command\"]" \
+    --output text \
+    --query "Command.CommandId")
+  
+  echo "Command ID: $cmd_id"
+  echo "Waiting for command to complete..."
+  aws ssm wait command-executed --command-id "$cmd_id" --instance-id "$instance_id"
+  
+  echo "Command output:"
+  aws ssm get-command-invocation \
+    --command-id "$cmd_id" \
+    --instance-id "$instance_id" \
+    --query "StandardOutputContent" \
+    --output text
+}
+
+# List available SSM managed instances
+alias awsls-ssm='aws ssm describe-instance-information --query "InstanceInformationList[*].{InstanceId:InstanceId,PingStatus:PingStatus,PlatformName:PlatformName,PlatformVersion:PlatformVersion,AgentVersion:AgentVersion}" --output table'
+
+# List SSM parameters (with decryption)
+alias awsls-params='aws ssm describe-parameters --query "Parameters[*].{Name:Name,Type:Type,LastModified:LastModifiedDate}" --output table'
+
+awsget-param() {
+  aws ssm get-parameter --name "$1" --with-decryption --query "Parameter.Value" --output text
+}
+
+# EC2 Security Groups
+alias awsls-sg='aws ec2 describe-security-groups --query "SecurityGroups[*].{ID:GroupId,Name:GroupName,VPC:VpcId}" --output table'
+
+awssg-info() {
+  aws ec2 describe-security-groups --group-ids "$1" | jq '.'
+}
+
+awssg-rules() {
+  aws ec2 describe-security-groups --group-ids "$1" --query "SecurityGroups[*].{GroupName:GroupName,IpPermissions:IpPermissions[*].{Protocol:IpProtocol,FromPort:FromPort,ToPort:ToPort,IpRanges:IpRanges[*].CidrIp}}" --output table
+}
+
+# EC2 AMI Management
+alias awsls-ami='aws ec2 describe-images --owners self --query "Images[*].{ID:ImageId,Name:Name,Created:CreationDate,State:State}" --output table'
+
+awsami-info() {
+  aws ec2 describe-images --image-ids "$1" | jq '.'
+}
+
+# S3 operations
+alias s3ls='aws s3 ls'
+alias s3cp='aws s3 cp'
+alias s3sync='aws s3 sync'
+alias s3rm='aws s3 rm'
+
+s3ls-bucket() {
+  aws s3 ls "s3://$1/" --recursive --human-readable --summarize
+}
+
+s3size() {
+  aws s3 ls "s3://$1/" --recursive --human-readable --summarize | grep "Total Size"
+}
+
+s3find() {
+  if [ "$#" -ne 2 ]; then
+    echo "Usage: s3find [bucket] [search-pattern]"
+    return 1
+  fi
+  aws s3 ls "s3://$1/" --recursive | grep "$2"
+}
+
+# ECS commands
+alias ecsls='aws ecs list-clusters'
+alias ecssvc='aws ecs list-services --cluster'
+alias ecstasks='aws ecs list-tasks --cluster'
+
+ecsls-services() {
+  aws ecs list-services --cluster "$1" --query "serviceArns" --output text
+}
+
+ecsls-tasks() {
+  aws ecs list-tasks --cluster "$1" --service-name "$2" --query "taskArns" --output text
+}
+
+ecsdesc-service() {
+  aws ecs describe-services --cluster "$1" --services "$2" | jq '.'
+}
+
+ecsdesc-task() {
+  aws ecs describe-task-definition --task-definition "$1" | jq '.'
+}
+
+# CloudWatch Logs
+awslogs-groups() {
+  aws logs describe-log-groups --query "logGroups[*].{Name:logGroupName,RetentionDays:retentionInDays}" --output table
+}
+
+awslogs-streams() {
+  aws logs describe-log-streams --log-group-name "$1" --query "logStreams[*].{Name:logStreamName,LastEvent:lastEventTimestamp}" --output table
+}
+
+awslogs-get() {
+  if [ "$#" -lt 2 ]; then
+    echo "Usage: awslogs-get [log-group] [log-stream] [start-time] [end-time]"
+    echo "Time format: YYYY-MM-DD HH:MM:SS (in UTC)"
+    return 1
+  fi
+  
+  local group="$1"
+  local stream="$2"
+  local start_time="$3"
+  local end_time="$4"
+  local start_ts end_ts
+  
+  if [ -n "$start_time" ]; then
+    start_ts=$(date -u -d "$start_time" +%s)000
+    start_args="--start-time $start_ts"
+  else
+    start_args=""
+  fi
+  
+  if [ -n "$end_time" ]; then
+    end_ts=$(date -u -d "$end_time" +%s)000
+    end_args="--end-time $end_ts"
+  else
+    end_args=""
+  fi
+  
+  aws logs get-log-events --log-group-name "$group" --log-stream-name "$stream" $start_args $end_args --output text --query "events[*].[timestamp,message]"
+}
+
+awslogs-tail() {
+  local minutes="${2:-10}"
+  aws logs get-log-events --log-group-name "$1" --limit 100 \
+    --start-time $(( $(date +%s) - $minutes * 60 ))000 \
+    --output text --query "events[*].[timestamp,message]"
+}
+
+# Lambda Functions
+alias awsls-lambda='aws lambda list-functions --query "Functions[*].{Name:FunctionName,Runtime:Runtime,Memory:MemorySize,Timeout:Timeout,LastModified:LastModified}" --output table'
+
+awslambda-info() {
+  aws lambda get-function --function-name "$1" | jq '.'
+}
+
+awslambda-logs() {
+  local function_name="$1"
+  local minutes="${2:-60}"
+  local start_time=$(date -u -d "-$minutes minutes" +%Y-%m-%dT%H:%M:%SZ)
+  
+  aws logs filter-log-events \
+    --log-group-name "/aws/lambda/$function_name" \
+    --start-time "$(date -u -d "$start_time" +%s)000" \
+    --output text --query "events[*].[timestamp,message]" | sort
+}
+
+# VPC resources
+alias awsls-vpc='aws ec2 describe-vpcs --query "Vpcs[*].{ID:VpcId,CIDR:CidrBlock,Name:Tags[?Key==\`Name\`].Value|[0],IsDefault:IsDefault}" --output table'
+alias awsls-subnets='aws ec2 describe-subnets --query "Subnets[*].{ID:SubnetId,VPC:VpcId,CIDR:CidrBlock,AZ:AvailabilityZone,Public:MapPublicIpOnLaunch}" --output table'
+alias awsls-rtb='aws ec2 describe-route-tables --query "RouteTables[*].{ID:RouteTableId,VPC:VpcId}" --output table'
+alias awsls-igw='aws ec2 describe-internet-gateways --query "InternetGateways[*].{ID:InternetGatewayId,Attachments:Attachments[*].VpcId}" --output table'
+alias awsls-natgw='aws ec2 describe-nat-gateways --query "NatGateways[*].{ID:NatGatewayId,Subnet:SubnetId,State:State}" --output table'
+
+# RDS instances
+alias awsls-rds='aws rds describe-db-instances --query "DBInstances[*].{ID:DBInstanceIdentifier,Engine:Engine,Version:EngineVersion,Status:DBInstanceStatus,Size:DBInstanceClass}" --output table'
+
+awsrds-info() {
+  aws rds describe-db-instances --db-instance-identifier "$1" | jq '.'
+}
+
+
+# Cloudformation stacks
+alias awsls-stacks='aws cloudformation list-stacks --stack-status-filter CREATE_COMPLETE UPDATE_COMPLETE --query "StackSummaries[*].{Name:StackName,Status:StackStatus,Updated:LastUpdatedTime}" --output table'
+
+awscf-validate() {
+  aws cloudformation validate-template --template-body "file://$1"
+}
+
+awscf-events() {
+  aws cloudformation describe-stack-events --stack-name "$1" --query "StackEvents[*].{Timestamp:Timestamp,Status:ResourceStatus,Type:ResourceType,ID:LogicalResourceId,Reason:ResourceStatusReason}" --output table
+}
+
+awscf-resources() {
+  aws cloudformation describe-stack-resources --stack-name "$1" --query "StackResources[*].{ID:LogicalResourceId,Type:ResourceType,Status:ResourceStatus,Timestamp:Timestamp}" --output table
+}
+
+awscf-outputs() {
+  aws cloudformation describe-stacks --stack-name "$1" --query "Stacks[0].Outputs" --output table
+}
+
+# AWS Cost Explorer
+awscost-month() {
+  local month="${1:-$(date +%Y-%m)}"
+  local start_date="${month}-01"
+  local end_date
+  
+  # Get the last day of the month
+  if [[ "$month" == "$(date +%Y-%m)" ]]; then
+    # Current month - use today's date
+    end_date=$(date +%Y-%m-%d)
+  else
+    # Past month - find the last day
+    end_date=$(date -d "${start_date} +1 month -1 day" +%Y-%m-%d)
+  fi
+  
+  aws ce get-cost-and-usage \
+    --time-period Start=${start_date},End=${end_date} \
+    --granularity MONTHLY \
+    --metrics "BlendedCost" "UnblendedCost" "UsageQuantity" \
+    --group-by Type=DIMENSION,Key=SERVICE \
+    --query "ResultsByTime[*].Groups[*].{Service:Keys[0],Cost:Metrics.BlendedCost.Amount}" \
+    --output table
+}
+
+awscost-daily() {
+  local days="${1:-7}"
+  local start_date=$(date -d "-${days} days" +%Y-%m-%d)
+  local end_date=$(date +%Y-%m-%d)
+  
+  aws ce get-cost-and-usage \
+    --time-period Start=${start_date},End=${end_date} \
+    --granularity DAILY \
+    --metrics "BlendedCost" \
+    --group-by Type=DIMENSION,Key=SERVICE \
+    --query "ResultsByTime[*].{Date:TimePeriod.Start,Cost:Total.BlendedCost.Amount}" \
+    --output table
+}
+
+# AWS Health Dashboard
+alias awshealth='aws health describe-events --query "events[*].{EventARN:arn,Service:service,EventTypeCode:eventTypeCode,StartTime:startTime,LastUpdatedTime:lastUpdatedTime,StatusCode:statusCode}" --output table'
+
+awshealth-details() {
+  aws health describe-event-details --event-arns "$1" | jq '.'
+}
+
+# AWS IAM
+alias awsls-users='aws iam list-users --query "Users[*].{Name:UserName,ID:UserId,ARN:Arn,Created:CreateDate}" --output table'
+alias awsls-roles='aws iam list-roles --query "Roles[*].{Name:RoleName,ID:RoleId,Created:CreateDate}" --output table'
+alias awsls-policies='aws iam list-policies --scope Local --query "Policies[*].{Name:PolicyName,ID:PolicyId,ARN:Arn}" --output table'
+
+awsiam-userpolicies() {
+  aws iam list-attached-user-policies --user-name "$1" --query "AttachedPolicies[*].{Name:PolicyName,ARN:PolicyArn}" --output table
+}
+
+# Load AWS SSO profiles
+awssso-login() {
+  local profile="${1:-default}"
+  aws sso login --profile "$profile"
+}
+
+awssso-logout() {
+  aws sso logout
+}
+
+# AWS Dynamic Profile Functions
+_aws_profiles() {
+  local profiles_file="$HOME/.aws/config"
+  if [[ -r "$profiles_file" ]]; then
+    grep '\[profile' "$profiles_file" | sed -e 's/\[profile \(.*\)\]/\1/g'
+  fi
+}
+
+aws-profile() {
+  export AWS_PROFILE="$1"
+  echo "Switched to AWS profile: $AWS_PROFILE"
+  aws sts get-caller-identity --query "Account" --output text
+}
+
+# AWS profile completion
+_aws_profile_completion() {
+  reply=($(_aws_profiles))
+}
+compctl -K _aws_profile_completion aws-profile
+
+# AWS Region switching
+aws-region() {
+  export AWS_REGION="$1"
+  echo "Switched to AWS region: $AWS_REGION"
+}
+
+# Common AWS regions for completion
+_aws_regions() {
+  echo "us-east-1 us-east-2 us-west-1 us-west-2 eu-west-1 eu-west-2 eu-central-1 ap-northeast-1 ap-northeast-2 ap-southeast-1 ap-southeast-2 sa-east-1 ca-central-1"
+}
+
+_aws_region_completion() {
+  reply=($(_aws_regions))
+}
+compctl -K _aws_region_completion aws-region
+
+# Special DevOps Functions
+# EC2 Troubleshooting Bundle
+ec2-troubleshoot() {
+  if [ "$#" -lt 1 ]; then
+    echo "Usage: ec2-troubleshoot [instance-id]"
+    return 1
+  fi
+  
+  local instance_id="$1"
+  local profile="$AWS_PROFILE"
+  
+  echo "🔍 Running EC2 troubleshooting for instance $instance_id (profile: $profile)"
+  echo "----------------------------------------"
+  
+  # Get basic instance info
+  echo "📋 INSTANCE DETAILS:"
+  aws ec2 describe-instances --instance-ids "$instance_id" \
+    --query "Reservations[0].Instances[0].{ID:InstanceId,Name:Tags[?Key=='Name'].Value|[0],Type:InstanceType,State:State.Name,AZ:Placement.AvailabilityZone,VPC:VpcId,SubnetId:SubnetId,PrivateIP:PrivateIpAddress,PublicIP:PublicIpAddress,LaunchTime:LaunchTime}" \
+    --output table
+  
+  # Check status
+  echo -e "\n📊 SYSTEM STATUS:"
+  aws ec2 describe-instance-status --instance-ids "$instance_id" \
+    --query "InstanceStatuses[0].{InstanceStatus:InstanceStatus.Status,SystemStatus:SystemStatus.Status,ReachabilityStatus:InstanceState.Name}" \
+    --output table
+  
+  # Security Groups
+  echo -e "\n🔒 SECURITY GROUPS:"
+  aws ec2 describe-instances --instance-ids "$instance_id" \
+    --query "Reservations[0].Instances[0].SecurityGroups[*].{ID:GroupId,Name:GroupName}" \
+    --output table
+  
+  # Check CloudWatch metrics (CPU, Status)
+  echo -e "\n📈 CPU UTILIZATION (Last 30 minutes):"
+  aws cloudwatch get-metric-statistics --namespace AWS/EC2 --metric-name CPUUtilization \
+    --dimensions Name=InstanceId,Value="$instance_id" \
+    --statistics Average Maximum --period 300 \
+    --start-time "$(date -u -d '-30 minutes' '+%Y-%m-%dT%H:%M:%SZ')" \
+    --end-time "$(date -u '+%Y-%m-%dT%H:%M:%SZ')" \
+    --output table
+  
+  # Check if instance has SSM agent
+  echo -e "\n🛠️ SSM STATUS:"
+  aws ssm describe-instance-information --filters "Key=InstanceIds,Values=$instance_id" \
+    --query "InstanceInformationList[*].{Status:PingStatus,Platform:PlatformName,Version:PlatformVersion,Agent:AgentVersion}" \
+    --output table
+  
+  # Get recent SSM command history if available
+  echo -e "\n📜 RECENT SSM COMMANDS:"
+  aws ssm list-commands \
+    --filters "Key=target-id,Values=$instance_id" \
+    --query "Commands[0:5].{ID:CommandId,Status:Status,Document:DocumentName,Executed:RequestedDateTime}" \
+    --output table
+  
+  # Check if instance is in an Auto Scaling group
+  echo -e "\n⚖️ AUTO SCALING GROUP:"
+  asg_name=$(aws autoscaling describe-auto-scaling-instances \
+    --instance-ids "$instance_id" \
+    --query "AutoScalingInstances[0].AutoScalingGroupName" \
+    --output text)
+  
+  if [[ "$asg_name" != "None" && -n "$asg_name" ]]; then
+    echo "Instance belongs to ASG: $asg_name"
+    aws autoscaling describe-auto-scaling-groups \
+      --auto-scaling-group-names "$asg_name" \
+      --query "AutoScalingGroups[0].{Name:AutoScalingGroupName,MinSize:MinSize,MaxSize:MaxSize,DesiredCapacity:DesiredCapacity,HealthCheck:HealthCheckType}" \
+      --output table
+  else
+    echo "Instance is not part of an Auto Scaling group"
+  fi
+  
+  # Check systems manager parameters related to this instance (by name tag)
+  instance_name=$(aws ec2 describe-instances --instance-ids "$instance_id" \
+    --query "Reservations[0].Instances[0].Tags[?Key=='Name'].Value | [0]" \
+    --output text)
+  
+  if [[ "$instance_name" != "None" && -n "$instance_name" ]]; then
+    echo -e "\n⚙️ RELATED SSM PARAMETERS (by name):"
+    aws ssm describe-parameters \
+      --parameter-filters "Key=Name,Option=Contains,Values=$instance_name" \
+      --query "Parameters[*].{Name:Name,Type:Type,LastModified:LastModifiedDate}" \
+      --output table
+  fi
+  
+  # Console output
+  echo -e "\n💻 LAST CONSOLE OUTPUT (TRUNCATED):"
+  aws ec2 get-console-output --instance-id "$instance_id" --output text | tail -20
+  
+  echo -e "\n✅ TROUBLESHOOTING COMPLETE"
+  echo "For SSM session: awsssm $instance_id"
+  echo "For SSH access (if applicable): awssh $instance_id"
+}
+
+# K8s Diagnostics
+k8s-pod-troubleshoot() {
+  if [ "$#" -lt 1 ]; then
+    echo "Usage: k8s-pod-troubleshoot [pod-name] [namespace]"
+    return 1
+  fi
+  
+  local pod="$1"
+  local namespace="${2:-default}"
+  
+  echo "🔍 Running Kubernetes pod troubleshooting for $pod in $namespace namespace"
+  echo "----------------------------------------"
+  
+  # Get basic pod info
+  echo "📋 POD DETAILS:"
+  kubectl get pod "$pod" -n "$namespace" -o wide
+  
+  # Describe the pod
+  echo -e "\n📊 POD DESCRIPTION:"
+  kubectl describe pod "$pod" -n "$namespace" | grep -E "^  (Type|Reason|Message|First Seen|Last Seen):|^Events:|^Warning|^  Normal|^  Warning" | tail -10
+  
+  # Pod resource usage
+  echo -e "\n📈 RESOURCE USAGE:"
+  kubectl top pod "$pod" -n "$namespace" 2>/dev/null || echo "Resource metrics not available"
+  
+  # Pod logs
+  echo -e "\n📜 RECENT LOGS:"
+  kubectl logs --tail=20 "$pod" -n "$namespace" 2>/dev/null || echo "No logs available"
+  
+  # Pod events
+  echo -e "\n🔔 POD EVENTS:"
+  kubectl get events --field-selector involvedObject.name="$pod" -n "$namespace" --sort-by='.lastTimestamp' | tail -10
+  
+  # Pod containers
+  echo -e "\n🧪 CONTAINER STATUS:"
+  kubectl get pod "$pod" -n "$namespace" -o jsonpath='{.status.containerStatuses[*].name}{"\t"}{.status.containerStatuses[*].ready}{"\t"}{.status.containerStatuses[*].restartCount}{"\n"}'
+  
+  # Pod volumes
+  echo -e "\n💾 VOLUMES:"
+  kubectl describe pod "$pod" -n "$namespace" | grep -A 10 "Volumes:"
+  
+  echo -e "\n✅ POD DIAGNOSTICS COMPLETE"
+  echo "For shell access: kubectl exec -it $pod -n $namespace -- sh"
+  echo "For full logs: kubectl logs $pod -n $namespace"
+}
+
+# Combined AWS+K8s EKS diagnostics
+eks-diagnostics() {
+  local cluster="$1"
+  local profile="$AWS_PROFILE"
+  
+  echo "🔍 Running EKS Cluster diagnostics for $cluster using profile $profile"
+  echo "----------------------------------------"
+  
+  # Get cluster info
+  echo "📋 CLUSTER DETAILS:"
+  aws eks describe-cluster --name "$cluster" \
+    --query "cluster.{Name:name,Status:status,Version:version,Endpoint:endpoint,RoleARN:roleArn,VPC:resourcesVpcConfig.vpcId}" \
+    --output table
+  
+  # Get nodegroups
+  echo -e "\n📊 NODEGROUPS:"
+  aws eks list-nodegroups --cluster-name "$cluster" --output text | while read -r nodegroup; do
+    aws eks describe-nodegroup --cluster-name "$cluster" --nodegroup-name "$nodegroup" \
+      --query "nodegroup.{Name:nodegroupName,Status:status,Type:instanceTypes[0],MinSize:scalingConfig.minSize,MaxSize:scalingConfig.maxSize,DesiredSize:scalingConfig.desiredSize,DiskSize:diskSize}" \
+      --output table
+  done
+  
+  # Connect kubectl to the cluster
+  echo -e "\n🔗 CONNECTING TO CLUSTER..."
+  aws eks update-kubeconfig --name "$cluster" --alias "$cluster"
+  
+  # Check nodes
+  echo -e "\n🖥️ NODE STATUS:"
+  kubectl get nodes -o wide
+  
+  # Check system pods
+  echo -e "\n🧪 SYSTEM PODS:"
+  kubectl get pods -n kube-system
+  
+  # Check namespaces
+  echo -e "\n📁 NAMESPACES:"
+  kubectl get namespaces
+  
+  # Check deployments across all namespaces
+  echo -e "\n🚀 DEPLOYMENTS:"
+  kubectl get deployments --all-namespaces -o wide | head -10
+  echo "(Showing first 10 deployments)"
+  
+  # Check cluster events
+  echo -e "\n🔔 RECENT CLUSTER EVENTS:"
+  kubectl get events --sort-by='.lastTimestamp' | tail -10
+  
+  # Check cluster health
+  echo -e "\n💓 CLUSTER HEALTH:"
+  kubectl get componentstatuses
+  
+  echo -e "\n✅ EKS DIAGNOSTICS COMPLETE"
+  echo "Current kubectl context set to $cluster"
+}
+
+# Generate temporary AWS credentials
+aws-assume-role() {
+  if [ "$#" -lt 1 ]; then
+    echo "Usage: aws-assume-role [role-arn] [session-name]"
+    return 1
+  fi
+  
+  local role_arn="$1"
+  local session_name="${2:-$(whoami)-$(date +%s)}"
+  local output
+  
+  echo "Assuming role: $role_arn"
+  echo "Session name: $session_name"
+  
+  output=$(aws sts assume-role --role-arn "$role_arn" --role-session-name "$session_name" --query 'Credentials.[AccessKeyId,SecretAccessKey,SessionToken]' --output text)
+  
+  if [ $? -ne 0 ]; then
+    echo "Failed to assume role."
+    return 1
+  fi
+  
+  # Parse output into environment variables
+  export AWS_ACCESS_KEY_ID=$(echo "$output" | awk 'NR==1{print $1}')
+  export AWS_SECRET_ACCESS_KEY=$(echo "$output" | awk 'NR==1{print $2}')
+  export AWS_SESSION_TOKEN=$(echo "$output" | awk 'NR==1{print $3}')
+  
+  echo "Temporary credentials set in current shell environment."
+  echo "Credentials will expire: $(aws sts get-caller-identity --query "ResponseMetadata.HTTPHeaders.date" --output text)"
+  echo ""
+  echo "Current identity: $(aws sts get-caller-identity --query "Arn" --output text)"
+}
+
+# Network tools
+alias ports='netstat -tulanp'
+alias ping='ping -c 5'
+alias fastping='ping -c 100 -s.2'
+alias ipe='curl ipinfo.io/ip'
+alias ipi='ipconfig getifaddr en0'
+alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
+alias localip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
+alias sniff="sudo ngrep -d 'en0' -t '^(GET|POST) ' 'tcp and port 80'"
+alias httpdump="sudo tcpdump -i en0 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET \/.*\""
+
+# Terraform shortcuts
+alias tf='terraform'
+alias tfi='terraform init'
+alias tfp='terraform plan'
+alias tfa='terraform apply'
+alias tfaa='terraform apply -auto-approve'
+alias tfd='terraform destroy'
+alias tfda='terraform destroy -auto-approve'
+alias tfo='terraform output'
+alias tfs='terraform state'
+alias tfsl='terraform state list'
+alias tfv='terraform validate'
+alias tfw='terraform workspace'
+alias tfws='terraform workspace select'
+alias tfwl='terraform workspace list'
+alias tfwn='terraform workspace new'
+alias tfg='terraform graph | dot -Tsvg > graph.svg'
+
+# Terragrunt
+alias tg='terragrunt'
+alias tgp='terragrunt plan'
+alias tga='terragrunt apply'
+alias tgaa='terragrunt apply -auto-approve'
+
+# Useful functions
+# Search for running processes
+psg() {
+  ps aux | grep -v grep | grep -i -e VSZ -e $1
+}
+
+# Make directory and cd into it
+mkcd() {
+  mkdir -p "$1" && cd "$1"
+}
+
+# Extract common compression formats
+extract() {
+  if [ -f $1 ] ; then
+    case $1 in
+      *.tar.bz2)   tar xjf $1     ;;
+      *.tar.gz)    tar xzf $1     ;;
+      *.bz2)       bunzip2 $1     ;;
+      *.rar)       unrar e $1     ;;
+      *.gz)        gunzip $1      ;;
+      *.tar)       tar xf $1      ;;
+      *.tbz2)      tar xjf $1     ;;
+      *.tgz)       tar xzf $1     ;;
+      *.zip)       unzip $1       ;;
+      *.Z)         uncompress $1  ;;
+      *.7z)        7z x $1        ;;
+      *)           echo "'$1' cannot be extracted via extract()" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
+}
+
+# Create a data URL from a file
+dataurl() {
+  local mimeType=$(file -b --mime-type "$1")
+  if [[ $mimeType == text/* ]]; then
+    mimeType="${mimeType};charset=utf-8"
+  fi
+  echo "data:${mimeType};base64,$(openssl base64 -in "$1" | tr -d '\n')"
+}
+
+# Get current IP address
+myip() {
+  curl -s 'https://api.ipify.org?format=json' | jq -r '.ip'
+}
+
+# Weather info
+weather() {
+  curl -s "wttr.in/metz?m"
+}
+
+# Kill process by port number
+killport() {
+  lsof -i tcp:$1 | awk 'NR!=1 {print $2}' | xargs kill -9
+}
+
+# Git clone and cd into directory
+gclonecd() {
+  git clone "$1" && cd "$(basename "$1" .git)"
+}
+
+
+# Compare original and gzipped file size
+gz() {
+  local origsize=$(wc -c < "$1")
+  local gzipsize=$(gzip -c "$1" | wc -c)
+  local ratio=$(echo "$gzipsize * 100 / $origsize" | bc -l)
+  printf "orig: %d bytes\ngzip: %d bytes\nratio: %.1f%%\n" "$origsize" "$gzipsize" "$ratio"
+}
+
+# Environment variables
+# Go environment if installed
+if [ -d "$HOME/go" ]; then
+  export GOPATH=$HOME/go
+  export PATH=$PATH:$GOPATH/bin
+fi
+
+# Rust environment if installed
+if [ -d "$HOME/.cargo/bin" ]; then
+  export PATH=$PATH:$HOME/.cargo/bin
+fi
+
+# Kubernetes configs
+if [ -d "$HOME/.kube" ]; then
+  export KUBECONFIG=$HOME/.kube/config
+fi
+
+# Cloud configuration paths
+if [ -d "$HOME/.aws" ]; then
+  export AWS_CONFIG_FILE=$HOME/.aws/config
+  export AWS_SHARED_CREDENTIALS_FILE=$HOME/.aws/credentials
+fi
+
+# Enable kubectl autocompletion if installed
+if command -v kubectl &> /dev/null; then
+  source <(kubectl completion zsh)
+fi
+
+# Enable helm autocompletion if installed
+if command -v helm &> /dev/null; then
+  source <(helm completion zsh)
+fi
+
+# Load direnv if installed
+if command -v direnv &> /dev/null; then
+  eval "$(direnv hook zsh)"
+fi
+
+# Load starship prompt if installed
+if command -v starship &> /dev/null; then
+  eval "$(starship init zsh)"
+fi
+
+
 
 ################ ASDF
 . "$HOME/.asdf/asdf.sh"
 fpath=(${ASDF_DIR}/completions $fpath)
 autoload -Uz compinit && compinit
-asdf global python 3.11.0
+asdf global python 3.11.6
 asdf global terraform 1.5.6
 asdf global terragrunt 0.50.4
 asdf global kubectl 1.28.1
